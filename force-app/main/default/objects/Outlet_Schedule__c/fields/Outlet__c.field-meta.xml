@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Outlet__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The outlet being scheduled for visit</description>
+    <label>Outlet</label>
+    <referenceTo>Outlet__c</referenceTo>
+    <relationshipLabel>Outlet Schedules</relationshipLabel>
+    <relationshipName>Outlet_Schedules</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

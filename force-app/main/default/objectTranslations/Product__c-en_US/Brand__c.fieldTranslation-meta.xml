@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Brand --></label>
+    <name>Brand__c</name>
+    <picklistValues>
+        <masterLabel>Britannia</masterLabel>
+        <translation><!-- Britannia --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cadbury</masterLabel>
+        <translation><!-- Cadbury --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ITC</masterLabel>
+        <translation><!-- ITC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Oreo</masterLabel>
+        <translation><!-- Oreo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Parle</masterLabel>
+        <translation><!-- Parle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Patanjali</masterLabel>
+        <translation><!-- Patanjali --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Priya Gold</masterLabel>
+        <translation><!-- Priya Gold --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sunfeast</masterLabel>
+        <translation><!-- Sunfeast --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Unibic</masterLabel>
+        <translation><!-- Unibic --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

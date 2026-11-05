@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Outlet_Name__c</columns>
+    <columns>Distributor_Name__c</columns>
+    <columns>Product_Name__c</columns>
+    <columns>Quantity__c</columns>
+    <columns>Unit_Type__c</columns>
+    <columns>Pieces_Per_Case__c</columns>
+    <columns>Total_Amount__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Secondary Orders</label>
+</ListView>

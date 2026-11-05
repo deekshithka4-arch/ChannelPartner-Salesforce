@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PAN_Number_10_Alphanumeric</fullName>
+    <active>true</active>
+    <description>PAN Number must contain exactly 10 alphanumeric characters (letters and numbers).</description>
+    <errorConditionFormula>AND(
+    NOT(ISBLANK(PAN_Number__c)),
+    OR(
+        LEN(PAN_Number__c) != 10,
+        NOT(REGEX(PAN_Number__c, &quot;^[a-zA-Z0-9]{10}$&quot;))
+    )
+)</errorConditionFormula>
+    <errorDisplayField>PAN_Number__c</errorDisplayField>
+    <errorMessage>PAN Number must contain exactly 10 alphanumeric characters (letters and numbers).</errorMessage>
+</ValidationRule>

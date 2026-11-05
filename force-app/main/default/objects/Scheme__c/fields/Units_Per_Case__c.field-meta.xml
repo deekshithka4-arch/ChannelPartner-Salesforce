@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Units_Per_Case__c</fullName>
+    <defaultValue>12</defaultValue>
+    <description>Number of packets in 1 Case (e.g. 1 Case = 12 Packets)</description>
+    <externalId>false</externalId>
+    <label>Units Per Case (Conversion)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

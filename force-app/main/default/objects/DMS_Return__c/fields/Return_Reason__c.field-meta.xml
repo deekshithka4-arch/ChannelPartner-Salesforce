@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Return_Reason__c</fullName>
+    <label>Return Reason</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Damaged in Transit</fullName>
+                <default>true</default>
+                <label>Damaged in Transit</label>
+            </value>
+            <value>
+                <fullName>Damaged</fullName>
+                <default>false</default>
+                <label>Damaged / Broken Packaging</label>
+            </value>
+            <value>
+                <fullName>Packaging Defect</fullName>
+                <default>false</default>
+                <label>Packaging Defect</label>
+            </value>
+            <value>
+                <fullName>Expired</fullName>
+                <default>false</default>
+                <label>Expired Goods</label>
+            </value>
+            <value>
+                <fullName>Expired Stock</fullName>
+                <default>false</default>
+                <label>Expired Stock</label>
+            </value>
+            <value>
+                <fullName>Delayed</fullName>
+                <default>false</default>
+                <label>Transit Delay / Missed Window</label>
+            </value>
+            <value>
+                <fullName>No demand</fullName>
+                <default>false</default>
+                <label>Overstocked / Slow Moving</label>
+            </value>
+            <value>
+                <fullName>Water Damage</fullName>
+                <default>false</default>
+                <label>Water Damage</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

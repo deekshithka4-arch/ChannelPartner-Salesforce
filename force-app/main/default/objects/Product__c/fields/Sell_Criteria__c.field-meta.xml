@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sell_Criteria__c</fullName>
+    <description>Product sell criteria configuration: None, Must Sell, Focused Sell, and Suggested Sell (multi-criteria supported)</description>
+    <label>Sell Criteria</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>None</fullName>
+                <default>true</default>
+                <label>None</label>
+            </value>
+            <value>
+                <fullName>Must Sell</fullName>
+                <default>false</default>
+                <label>Must Sell</label>
+            </value>
+            <value>
+                <fullName>Focused Sell</fullName>
+                <default>false</default>
+                <label>Focused Sell</label>
+            </value>
+            <value>
+                <fullName>Suggested Sell</fullName>
+                <default>false</default>
+                <label>Suggested Sell</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

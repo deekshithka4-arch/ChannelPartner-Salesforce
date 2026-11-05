@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Damaged Returned Packets --></label>
+    <name>Damaged_Returned_Packets__c</name>
+</CustomFieldTranslation>

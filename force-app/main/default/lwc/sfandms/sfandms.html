@@ -1,0 +1,1687 @@
+<template>
+    <div class="slds-card sfa-container slds-m-around_medium">
+        <!-- Top Banner Header -->
+        <div class="slds-page-header sfa-header">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-custom sfa-header-icon" title="SFANDMS">
+                                <lightning-icon icon-name="standard:lightning_component" size="medium"></lightning-icon>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span class="slds-page-header__title slds-truncate" title="SFANDMS Hub">
+                                            SFANDMS &mdash; SFA &amp; Distribution Management Portal
+                                        </span>
+                                    </h1>
+                                </div>
+                            </div>
+                            <p class="slds-page-header__name-meta">
+                                Connected User: <strong>{currentUserName}</strong> ({currentUserEmail}) &bull; Active Org: <strong>AgentforceOrg</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-page-header__col-actions">
+                    <div class="slds-page-header__controls">
+                        <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh All Data" title="Refresh" onclick={refreshData} class="slds-m-right_x-small"></lightning-button-icon>
+                        <lightning-button variant="brand" label="New Record" icon-name="utility:add" onclick={handleQuickAdd}></lightning-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Global KPI Metrics Bar -->
+        <div class="slds-grid slds-wrap slds-m-around_medium sfa-kpi-bar">
+            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-horizontal_x-small slds-m-bottom_small">
+                <div class="slds-box slds-box_small sfa-stat-card stat-blue">
+                    <div class="stat-number">{employeeCount}</div>
+                    <div class="stat-label">Employees ({pendingEmpCount} Pending)</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-horizontal_x-small slds-m-bottom_small">
+                <div class="slds-box slds-box_small sfa-stat-card stat-purple">
+                    <div class="stat-number">{geographyCount}</div>
+                    <div class="stat-label">Geographies</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-horizontal_x-small slds-m-bottom_small">
+                <div class="slds-box slds-box_small sfa-stat-card stat-teal">
+                    <div class="stat-number">{beatCount}</div>
+                    <div class="stat-label">Beats Defined</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-horizontal_x-small slds-m-bottom_small">
+                <div class="slds-box slds-box_small sfa-stat-card stat-orange">
+                    <div class="stat-number">{outletCount}</div>
+                    <div class="stat-label">Outlets Registered</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-horizontal_x-small slds-m-bottom_small">
+                <div class="slds-box slds-box_small sfa-stat-card stat-green">
+                    <div class="stat-number">{distributorCount}</div>
+                    <div class="stat-label">Distributors</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-horizontal_x-small slds-m-bottom_small">
+                <div class="slds-box slds-box_small sfa-stat-card stat-blue">
+                    <div class="stat-number">{primaryOrderCount}</div>
+                    <div class="stat-label">Primary Orders ({pendingPoCount} DO Pending)</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-horizontal_x-small slds-m-bottom_small">
+                <div class="slds-box slds-box_small sfa-stat-card stat-purple">
+                    <div class="stat-number">{openTicketCount}</div>
+                    <div class="stat-label">Open DMS Tickets</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-horizontal_x-small slds-m-bottom_small">
+                <div class="slds-box slds-box_small sfa-stat-card stat-orange">
+                    <div class="stat-number">{returnCount}</div>
+                    <div class="stat-label">Primary Returns</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-horizontal_x-small slds-m-bottom_small">
+                <div class="slds-box slds-box_small sfa-stat-card stat-teal">
+                    <div class="stat-number">{distributorOfficerCount}</div>
+                    <div class="stat-label">Distributor Officers</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-horizontal_x-small slds-m-bottom_small">
+                <div class="slds-box slds-box_small sfa-stat-card stat-orange">
+                    <div class="stat-number">{pendingPrimaryApprovalCount}</div>
+                    <div class="stat-label">DO Approvals Pending</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <template if:true={isLoading}>
+            <div class="slds-p-around_large slds-text-align_center">
+                <lightning-spinner alternative-text="Loading SFANDMS data..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Main Tabset -->
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+            <lightning-tabset selected-tab-value={activeTab} onselect={handleTabSelect}>
+                
+                <!-- TAB 1: EMPLOYEES -->
+                <lightning-tab label="Employees" value="employees" icon-name="standard:people">
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_small slds-m-top_x-small">
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning-input type="search" placeholder="Search employees by name, Aadhaar, PAN..." value={empSearchKey} onchange={handleEmpSearch}></lightning-input>
+                        </div>
+                        <div class="slds-col">
+                            <lightning-button variant="brand" label="Add Employee" icon-name="utility:add" onclick={openNewEmployeeModal}></lightning-button>
+                        </div>
+                    </div>
+
+                    <div class="slds-scrollable_x">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col"><div class="slds-truncate">Employee Name</div></th>
+                                    <th scope="col"><div class="slds-truncate">Aadhaar (12 Digits)</div></th>
+                                    <th scope="col"><div class="slds-truncate">PAN (10 Chars)</div></th>
+                                    <th scope="col"><div class="slds-truncate">Phone</div></th>
+                                    <th scope="col"><div class="slds-truncate">Emergency Contact</div></th>
+                                    <th scope="col"><div class="slds-truncate">Geography</div></th>
+                                    <th scope="col"><div class="slds-truncate">Hierarchy</div></th>
+                                    <th scope="col"><div class="slds-truncate">Level &amp; Channel (L1-L8)</div></th>
+                                    <th scope="col"><div class="slds-truncate">Reporting Manager</div></th>
+                                    <th scope="col"><div class="slds-truncate">Lead Owner</div></th>
+                                    <th scope="col"><div class="slds-truncate">Distributor</div></th>
+                                    <th scope="col"><div class="slds-truncate">PJP</div></th>
+                                    <th scope="col"><div class="slds-truncate">Status</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={filteredEmployees} for:item="emp">
+                                    <tr key={emp.Id}>
+                                        <td data-label="Employee Name">
+                                            <strong>{emp.Name}</strong>
+                                        </td>
+                                        <td data-label="Aadhaar Number">
+                                            <code>{emp.Aadhaar_Number__c}</code>
+                                        </td>
+                                        <td data-label="PAN Number">
+                                            <code>{emp.PAN_Number__c}</code>
+                                        </td>
+                                        <td data-label="Phone">{emp.Phone_Number__c}</td>
+                                        <td data-label="Emergency Contact">{emp.Emergency_Contact__c}</td>
+                                        <td data-label="Geography">{emp.geoName}</td>
+                                        <td data-label="Hierarchy">{emp.Hierarchy__c}</td>
+                                        <td data-label="Level & Channel">
+                                            <span class="slds-badge slds-badge_lightest slds-m-right_xx-small">{emp.Employee_Level__c}</span>
+                                            <span class={emp.channelBadgeClass}>{emp.Access_Channel__c}</span>
+                                        </td>
+                                        <td data-label="Manager"><span class="slds-badge slds-badge_lightest">{emp.mgrName}</span></td>
+                                        <td data-label="Lead Owner"><span class="slds-badge slds-badge_lightest">{emp.leadOwnerName}</span></td>
+                                        <td data-label="Distributor">{emp.Distributor__c}</td>
+                                        <td data-label="PJP">{emp.pjpName}</td>
+                                        <td data-label="Status">
+                                            <span class={emp.statusBadgeClass}>{emp.Status__c}</span>
+                                        </td>
+                                    </tr>
+                                </template>
+                                <template if:false={hasEmployees}>
+                                    <tr>
+                                        <td colspan="12" class="slds-text-align_center slds-p-around_medium">
+                                            <em>No employees found. Click "Add Employee" to create one.</em>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </lightning-tab>
+
+                <!-- TAB 2: GEOGRAPHY -->
+                <lightning-tab label="Geography" value="geography" icon-name="standard:address">
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_small slds-m-top_x-small">
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning-input type="search" placeholder="Search geography by name, state, district..." value={geoSearchKey} onchange={handleGeoSearch}></lightning-input>
+                        </div>
+                        <div class="slds-col">
+                            <lightning-button variant="brand" label="Add Geography" icon-name="utility:add" onclick={openNewGeoModal}></lightning-button>
+                        </div>
+                    </div>
+
+                    <div class="slds-scrollable_x">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col"><div class="slds-truncate">Geography Name</div></th>
+                                    <th scope="col"><div class="slds-truncate">Nation</div></th>
+                                    <th scope="col"><div class="slds-truncate">State</div></th>
+                                    <th scope="col"><div class="slds-truncate">District</div></th>
+                                    <th scope="col"><div class="slds-truncate">Town</div></th>
+                                    <th scope="col"><div class="slds-truncate">Municipal</div></th>
+                                    <th scope="col"><div class="slds-truncate">Village</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={filteredGeographies} for:item="geo">
+                                    <tr key={geo.Id}>
+                                        <td data-label="Geography Name"><strong>{geo.Name}</strong></td>
+                                        <td data-label="Nation">{geo.Nation__c}</td>
+                                        <td data-label="State">{geo.State__c}</td>
+                                        <td data-label="District">{geo.District__c}</td>
+                                        <td data-label="Town">{geo.Town__c}</td>
+                                        <td data-label="Municipal">{geo.Municipal__c}</td>
+                                        <td data-label="Village">{geo.Village__c}</td>
+                                    </tr>
+                                </template>
+                                <template if:false={hasGeographies}>
+                                    <tr>
+                                        <td colspan="7" class="slds-text-align_center slds-p-around_medium">
+                                            <em>No geography records found. Click "Add Geography" to create.</em>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </lightning-tab>
+
+                <!-- TAB 3: BEAT -->
+                <lightning-tab label="Beats" value="beats" icon-name="standard:location">
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_small slds-m-top_x-small">
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning-input type="search" placeholder="Search beats by name, ID, assigned rep..." value={beatSearchKey} onchange={handleBeatSearch}></lightning-input>
+                        </div>
+                        <div class="slds-col">
+                            <lightning-button variant="brand" label="Add Beat" icon-name="utility:add" onclick={openNewBeatModal}></lightning-button>
+                        </div>
+                    </div>
+
+                    <div class="slds-scrollable_x">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col"><div class="slds-truncate">Beat ID</div></th>
+                                    <th scope="col"><div class="slds-truncate">Beat Name</div></th>
+                                    <th scope="col"><div class="slds-truncate">Beat Assigned To</div></th>
+                                    <th scope="col"><div class="slds-truncate">Distributor</div></th>
+                                    <th scope="col"><div class="slds-truncate">Geography</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={filteredBeats} for:item="bt">
+                                    <tr key={bt.Id}>
+                                        <td data-label="Beat ID"><code>{bt.Beat_ID__c}</code></td>
+                                        <td data-label="Beat Name"><strong>{bt.Name}</strong></td>
+                                        <td data-label="Beat Assigned To">
+                                            <span class="slds-badge slds-badge_lightest">{bt.empName}</span>
+                                        </td>
+                                        <td data-label="Distributor">{bt.Distributor__c}</td>
+                                        <td data-label="Geography">{bt.geoName}</td>
+                                    </tr>
+                                </template>
+                                <template if:false={hasBeats}>
+                                    <tr>
+                                        <td colspan="5" class="slds-text-align_center slds-p-around_medium">
+                                            <em>No beats found. Click "Add Beat" to create.</em>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </lightning-tab>
+
+                <!-- TAB 4: OUTLETS -->
+                <lightning-tab label="Outlets" value="outlets" icon-name="standard:store">
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_small slds-m-top_x-small">
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning-input type="search" placeholder="Search outlets by name, owner, beat..." value={outletSearchKey} onchange={handleOutletSearch}></lightning-input>
+                        </div>
+                        <div class="slds-col">
+                            <lightning-button variant="brand" label="Add Outlet" icon-name="utility:add" onclick={openNewOutletModal}></lightning-button>
+                        </div>
+                    </div>
+
+                    <div class="slds-scrollable_x">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col"><div class="slds-truncate">Outlet Name</div></th>
+                                    <th scope="col"><div class="slds-truncate">Owner Name</div></th>
+                                    <th scope="col"><div class="slds-truncate">Contact No.</div></th>
+                                    <th scope="col"><div class="slds-truncate">Email</div></th>
+                                    <th scope="col"><div class="slds-truncate">Aadhaar</div></th>
+                                    <th scope="col"><div class="slds-truncate">PAN</div></th>
+                                    <th scope="col"><div class="slds-truncate">Geo Location</div></th>
+                                    <th scope="col"><div class="slds-truncate">Geography</div></th>
+                                    <th scope="col"><div class="slds-truncate">Beat</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={filteredOutlets} for:item="out">
+                                    <tr key={out.Id}>
+                                        <td data-label="Outlet Name"><strong>{out.Name}</strong></td>
+                                        <td data-label="Owner Name">{out.Outlet_Owner_Name__c}</td>
+                                        <td data-label="Contact">{out.Contact_No__c}</td>
+                                        <td data-label="Email">{out.Email__c}</td>
+                                        <td data-label="Aadhaar"><code>{out.Aadhaar__c}</code></td>
+                                        <td data-label="PAN"><code>{out.PAN__c}</code></td>
+                                        <td data-label="Geo Location">{out.locationDisplay}</td>
+                                        <td data-label="Geography">{out.geoName}</td>
+                                        <td data-label="Beat"><span class="slds-badge slds-badge_lightest">{out.beatName}</span></td>
+                                    </tr>
+                                </template>
+                                <template if:false={hasOutlets}>
+                                    <tr>
+                                        <td colspan="9" class="slds-text-align_center slds-p-around_medium">
+                                            <em>No outlets registered. Click "Add Outlet" to create.</em>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </lightning-tab>
+
+                <!-- TAB 5: PJP & APPROVALS -->
+                <lightning-tab label="PJP & Approvals" value="pjp" icon-name="standard:approval">
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_small slds-m-top_x-small">
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning-input type="search" placeholder="Search PJP by name, employee, lead owner..." value={pjpSearchKey} onchange={handlePjpSearch}></lightning-input>
+                        </div>
+                        <div class="slds-col">
+                            <lightning-button variant="brand" label="Add PJP" icon-name="utility:add" onclick={openNewPjpModal}></lightning-button>
+                        </div>
+                    </div>
+
+                    <div class="slds-scrollable_x">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col"><div class="slds-truncate">PJP Name</div></th>
+                                    <th scope="col"><div class="slds-truncate">Employee</div></th>
+                                    <th scope="col"><div class="slds-truncate">Lead Owner (Approver)</div></th>
+                                    <th scope="col"><div class="slds-truncate">PJP Status</div></th>
+                                    <th scope="col"><div class="slds-truncate">Employee Status</div></th>
+                                    <th scope="col"><div class="slds-truncate">Approval Actions</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={filteredPjps} for:item="p">
+                                    <tr key={p.Id}>
+                                        <td data-label="PJP Name"><strong>{p.Name}</strong></td>
+                                        <td data-label="Employee">{p.empName}</td>
+                                        <td data-label="Lead Owner">{p.ownerName}</td>
+                                        <td data-label="PJP Status">
+                                            <span class={p.statusBadgeClass}>{p.Status__c}</span>
+                                        </td>
+                                        <td data-label="Employee Status">
+                                            <span class={p.empStatusBadgeClass}>{p.empStatus}</span>
+                                        </td>
+                                        <td data-label="Actions">
+                                            <template if:true={p.isDraft}>
+                                                <lightning-button variant="brand-outline" label="Submit for Approval" icon-name="utility:send" size="small" data-id={p.Id} onclick={handleSubmitPjpAction}></lightning-button>
+                                            </template>
+                                            <template if:true={p.isSubmitted}>
+                                                <div class="slds-button-group">
+                                                    <lightning-button variant="success" label="Approve" icon-name="utility:check" size="small" data-id={p.Id} onclick={handleOpenApproveModal}></lightning-button>
+                                                    <lightning-button variant="destructive" label="Reject" icon-name="utility:close" size="small" data-id={p.Id} onclick={handleOpenRejectModal} class="slds-m-left_xx-small"></lightning-button>
+                                                </div>
+                                            </template>
+                                            <template if:true={p.isApproved}>
+                                                <span class="slds-badge slds-theme_success">Approved ✓</span>
+                                            </template>
+                                            <template if:true={p.isRejected}>
+                                                <span class="slds-badge slds-theme_error">Rejected ✗</span>
+                                            </template>
+                                        </td>
+                                    </tr>
+                                </template>
+                                <template if:false={hasPjps}>
+                                    <tr>
+                                        <td colspan="6" class="slds-text-align_center slds-p-around_medium">
+                                            <em>No PJPs defined. Click "Add PJP" to assign journey plan.</em>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </lightning-tab>
+
+                <!-- TAB 6: DISTRIBUTORS -->
+                <lightning-tab label="Distributors" value="distributors" icon-name="standard:account">
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_small slds-m-top_x-small">
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning-input type="search" placeholder="Search distributors by name, code, contact..." value={distSearchKey} onchange={handleDistSearch}></lightning-input>
+                        </div>
+                        <div class="slds-col">
+                            <lightning-button variant="brand" label="Add Distributor" icon-name="utility:add" onclick={openNewDistModal}></lightning-button>
+                        </div>
+                    </div>
+
+                    <div class="slds-scrollable_x">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col"><div class="slds-truncate">Distributor Name</div></th>
+                                    <th scope="col"><div class="slds-truncate">Code</div></th>
+                                    <th scope="col"><div class="slds-truncate">Distributor Owner</div></th>
+                                    <th scope="col"><div class="slds-truncate">Mobile &amp; Email</div></th>
+                                    <th scope="col"><div class="slds-truncate">City &amp; State</div></th>
+                                    <th scope="col"><div class="slds-truncate">Max Outlets</div></th>
+                                    <th scope="col"><div class="slds-truncate">DMS Portal Status</div></th>
+                                    <th scope="col"><div class="slds-truncate">Action</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template if:true={hasDistributors}>
+                                    <template for:each={filteredDistributors} for:item="d">
+                                        <tr key={d.Id} class="slds-hint-parent">
+                                            <td><strong>{d.Name}</strong></td>
+                                            <td>{d.Distributor_Code__c}</td>
+                                            <td>
+                                                <div><strong>{d.ownerNameDisplay}</strong></div>
+                                                <div class="slds-text-body_small slds-text-color_weak">{d.Contact_Person__c}</div>
+                                            </td>
+                                            <td>
+                                                <div>{d.mobileDisplay}</div>
+                                                <div class="slds-text-body_small slds-text-color_weak">{d.Email__c}</div>
+                                            </td>
+                                            <td>{d.City__c}, {d.State__c}</td>
+                                            <td>{d.Max_Outlets__c} Outlets</td>
+                                            <td>
+                                                <template if:true={d.DMS_Portal_Enabled__c}>
+                                                    <span class="slds-badge slds-theme_success">Portal Enabled</span>
+                                                </template>
+                                                <template if:false={d.DMS_Portal_Enabled__c}>
+                                                    <span class="slds-badge slds-theme_error">Disabled</span>
+                                                </template>
+                                            </td>
+                                            <td>
+                                                <template if:true={d.DMS_Portal_Enabled__c}>
+                                                    <lightning-button 
+                                                        variant="destructive"
+                                                        label="Disable Portal"
+                                                        size="small"
+                                                        data-id={d.Id}
+                                                        data-enabled={d.DMS_Portal_Enabled__c}
+                                                        onclick={handleToggleDistributor}>
+                                                    </lightning-button>
+                                                </template>
+                                                <template if:false={d.DMS_Portal_Enabled__c}>
+                                                    <lightning-button 
+                                                        variant="brand"
+                                                        label="Enable Portal"
+                                                        size="small"
+                                                        data-id={d.Id}
+                                                        data-enabled={d.DMS_Portal_Enabled__c}
+                                                        onclick={handleToggleDistributor}>
+                                                    </lightning-button>
+                                                </template>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </template>
+                                <template if:false={hasDistributors}>
+                                    <tr>
+                                        <td colspan="8" class="slds-text-align_center slds-p-around_medium">
+                                            <em>No distributors registered. Click "Add Distributor" to create one.</em>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </lightning-tab>
+
+                <!-- TAB 7: PRIMARY ORDERS (CASES) -->
+                <lightning-tab label="Primary Orders (Cases)" value="primaryOrders" icon-name="standard:orders">
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_small slds-m-top_x-small">
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning-input type="search" placeholder="Search primary orders by PO#, distributor, SR..." value={poSearchKey} onchange={handlePoSearch}></lightning-input>
+                        </div>
+                        <div class="slds-col">
+                            <lightning-button variant="brand" label="New Primary Order" icon-name="utility:add" onclick={openNewPoModal}></lightning-button>
+                        </div>
+                    </div>
+
+                    <div class="slds-scrollable_x">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col"><div class="slds-truncate">Order #</div></th>
+                                    <th scope="col"><div class="slds-truncate">Distributor</div></th>
+                                    <th scope="col"><div class="slds-truncate">Sales Representative</div></th>
+                                    <th scope="col"><div class="slds-truncate">Cases</div></th>
+                                    <th scope="col"><div class="slds-truncate">Gross / Tax / Total</div></th>
+                                    <th scope="col"><div class="slds-truncate">Primary Scheme Applied</div></th>
+                                    <th scope="col"><div class="slds-truncate">Status</div></th>
+                                    <th scope="col"><div class="slds-truncate">DO Approval Actions</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template if:true={hasPrimaryOrders}>
+                                    <template for:each={filteredPrimaryOrders} for:item="po">
+                                        <tr key={po.Id} class="slds-hint-parent">
+                                            <td><strong>{po.Name}</strong></td>
+                                            <td>{po.Distributor_Name__c}</td>
+                                            <td>{po.Employee_Name__c}</td>
+                                            <td><span class="slds-badge slds-badge_inverse">{po.Total_Cases__c} Cases</span></td>
+                                            <td>
+                                                <div>Total: <strong>₹{po.Total_Amount__c}</strong></div>
+                                                <div class="slds-text-body_small slds-text-color_weak">Gross: ₹{po.Gross_Amount__c} | GST: ₹{po.Tax_Amount__c}</div>
+                                            </td>
+                                            <td><span class="slds-badge slds-theme_alt-inverse">{po.Primary_Scheme_Applied__c}</span></td>
+                                            <td>
+                                                <template if:true={po.isApproved}>
+                                                    <span class="slds-badge slds-theme_success">DO Approved ✓</span>
+                                                </template>
+                                                <template if:true={po.isPending}>
+                                                    <span class="slds-badge slds-theme_warning">Pending DO Approval</span>
+                                                </template>
+                                                <template if:true={po.isRejected}>
+                                                    <span class="slds-badge slds-theme_error">DO Rejected ✗</span>
+                                                </template>
+                                            </td>
+                                            <td>
+                                                <template if:true={po.isPending}>
+                                                    <div class="slds-button-group">
+                                                        <lightning-button variant="success" label="DO Approve" size="small" data-id={po.Id} onclick={handleApprovePo}></lightning-button>
+                                                        <lightning-button variant="destructive" label="DO Reject" size="small" data-id={po.Id} onclick={handleRejectPo} class="slds-m-left_xx-small"></lightning-button>
+                                                    </div>
+                                                </template>
+                                                <template if:false={po.isPending}>
+                                                    <span class="slds-text-body_small">{po.DO_Remarks__c}</span>
+                                                </template>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </template>
+                                <template if:false={hasPrimaryOrders}>
+                                    <tr>
+                                        <td colspan="8" class="slds-text-align_center slds-p-around_medium">
+                                            <em>No primary orders recorded. Click "New Primary Order" to place order.</em>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </lightning-tab>
+
+                <!-- TAB 8: PURCHASED VS SOLD ANALYTICS -->
+                <lightning-tab label="Purchased vs Sold" value="purchasedVsSold" icon-name="standard:dashboard">
+                    <div class="slds-m-around_small">
+                        <div class="slds-text-heading_small slds-m-bottom_x-small"><strong>Purchased vs Sold Product Comparison</strong></div>
+                        <p class="slds-text-color_weak slds-m-bottom_medium">Live inventory balance: Cartons/Cases purchased from company vs pieces/packets sold to retail stores.</p>
+
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col"><div class="slds-truncate">Product</div></th>
+                                    <th scope="col"><div class="slds-truncate">Pieces/Case</div></th>
+                                    <th scope="col"><div class="slds-truncate">Case Price</div></th>
+                                    <th scope="col"><div class="slds-truncate">Primary Purchased</div></th>
+                                    <th scope="col"><div class="slds-truncate">Secondary Sold</div></th>
+                                    <th scope="col"><div class="slds-truncate">Available Stock</div></th>
+                                    <th scope="col"><div class="slds-truncate">Stock Status</div></th>
+                                    <th scope="col"><div class="slds-truncate">Primary Scheme</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={purchasedVsSoldAnalytics} for:item="item">
+                                    <tr key={item.name} class="slds-hint-parent">
+                                        <td><strong>{item.name}</strong></td>
+                                        <td>{item.piecesPerCase} pcs</td>
+                                        <td>₹{item.casePrice}</td>
+                                        <td><span class="slds-badge slds-theme_default"><strong>{item.purchasedCases}</strong> Cases</span></td>
+                                        <td><span class="slds-badge slds-theme_success">{item.soldCases} Cases ({item.soldPieces} pcs)</span></td>
+                                        <td><strong>{item.stockCases} Cases</strong> ({item.stockPieces} pcs)</td>
+                                        <td><span class="slds-badge slds-theme_inverse">{item.stockStatus}</span></td>
+                                        <td><span class="slds-badge slds-theme_alt-inverse">{item.scheme}</span></td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </lightning-tab>
+
+                <!-- TAB 9: DMS TICKETS -->
+                <lightning-tab label="DMS Tickets" value="dmsTickets" icon-name="standard:case">
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_small slds-m-top_x-small">
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning-input type="search" placeholder="Search tickets by subject, category, distributor..." value={ticketSearchKey} onchange={handleTicketSearch}></lightning-input>
+                        </div>
+                    </div>
+
+                    <div class="slds-scrollable_x">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col"><div class="slds-truncate">Ticket #</div></th>
+                                    <th scope="col"><div class="slds-truncate">Distributor</div></th>
+                                    <th scope="col"><div class="slds-truncate">Category</div></th>
+                                    <th scope="col"><div class="slds-truncate">Subject &amp; Description</div></th>
+                                    <th scope="col"><div class="slds-truncate">Priority</div></th>
+                                    <th scope="col"><div class="slds-truncate">Status</div></th>
+                                    <th scope="col"><div class="slds-truncate">Actions</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template if:true={hasDmsTickets}>
+                                    <template for:each={filteredDmsTickets} for:item="t">
+                                        <tr key={t.Id} class="slds-hint-parent">
+                                            <td><strong>{t.Name}</strong></td>
+                                            <td>{t.Distributor_Name__c}</td>
+                                            <td><span class="slds-badge">{t.Category__c}</span></td>
+                                            <td>
+                                                <div><strong>{t.Subject__c}</strong></div>
+                                                <div class="slds-text-body_small slds-text-color_weak">{t.Description__c}</div>
+                                            </td>
+                                            <td>{t.Priority__c}</td>
+                                            <td>
+                                                <template if:true={t.isOpen}>
+                                                    <span class="slds-badge slds-theme_warning">Open</span>
+                                                </template>
+                                                <template if:true={t.isInProgress}>
+                                                    <span class="slds-badge slds-theme_alt-inverse">In Progress</span>
+                                                </template>
+                                                <template if:true={t.isClosed}>
+                                                    <span class="slds-badge slds-theme_success">Closed ✓</span>
+                                                </template>
+                                                <template if:true={t.isRejected}>
+                                                    <span class="slds-badge slds-theme_error">Rejected ✗</span>
+                                                </template>
+                                            </td>
+                                            <td>
+                                                <div class="slds-button-group">
+                                                    <template if:true={t.isOpen}>
+                                                        <lightning-button label="In Progress" size="small" data-id={t.Id} data-status="In Progress" onclick={handleTicketStatusChange}></lightning-button>
+                                                    </template>
+                                                    <lightning-button variant="success" label="Resolve" size="small" data-id={t.Id} data-status="Closed" onclick={handleTicketStatusChange} class="slds-m-left_xx-small"></lightning-button>
+                                                    <lightning-button variant="destructive" label="Reject" size="small" data-id={t.Id} data-status="Rejected" onclick={handleTicketStatusChange} class="slds-m-left_xx-small"></lightning-button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </template>
+                                <template if:false={hasDmsTickets}>
+                                    <tr>
+                                        <td colspan="7" class="slds-text-align_center slds-p-around_medium">
+                                            <em>No DMS tickets found.</em>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </lightning-tab>
+
+                <!-- TAB 10: PRIMARY RETURNS -->
+                <lightning-tab label="Primary Returns (Cases)" value="primaryReturns" icon-name="standard:recycle_bin">
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_small slds-m-top_x-small">
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning-input type="search" placeholder="Search returns by PR#, product, distributor..." value={returnSearchKey} onchange={handleReturnSearch}></lightning-input>
+                        </div>
+                    </div>
+
+                    <div class="slds-scrollable_x">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col"><div class="slds-truncate">Return #</div></th>
+                                    <th scope="col"><div class="slds-truncate">Distributor</div></th>
+                                    <th scope="col"><div class="slds-truncate">Product</div></th>
+                                    <th scope="col"><div class="slds-truncate">Reason</div></th>
+                                    <th scope="col"><div class="slds-truncate">Cases &amp; Amount</div></th>
+                                    <th scope="col"><div class="slds-truncate">Status</div></th>
+                                    <th scope="col"><div class="slds-truncate">DO Approval Actions</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template if:true={hasPrimaryReturns}>
+                                    <template for:each={filteredPrimaryReturns} for:item="r">
+                                        <tr key={r.Id} class="slds-hint-parent">
+                                            <td><strong>{r.Name}</strong></td>
+                                            <td>{r.Distributor_Name__c}</td>
+                                            <td>{r.Product_Name__c}</td>
+                                            <td><span class="slds-badge slds-theme_warning">{r.Return_Reason__c}</span></td>
+                                            <td><strong>{r.Cases__c} Cases</strong> (₹{r.Total_Amount__c})</td>
+                                            <td>
+                                                <template if:true={r.isApproved}>
+                                                    <span class="slds-badge slds-theme_success">DO Approved ✓</span>
+                                                </template>
+                                                <template if:true={r.isPending}>
+                                                    <span class="slds-badge slds-theme_warning">Pending DO Approval</span>
+                                                </template>
+                                                <template if:true={r.isRejected}>
+                                                    <span class="slds-badge slds-theme_error">DO Rejected ✗</span>
+                                                </template>
+                                            </td>
+                                            <td>
+                                                <template if:true={r.isPending}>
+                                                    <div class="slds-button-group">
+                                                        <lightning-button variant="success" label="DO Approve" size="small" data-id={r.Id} onclick={handleApproveReturn}></lightning-button>
+                                                        <lightning-button variant="destructive" label="DO Reject" size="small" data-id={r.Id} onclick={handleRejectReturn} class="slds-m-left_xx-small"></lightning-button>
+                                                    </div>
+                                                </template>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </template>
+                                <template if:false={hasPrimaryReturns}>
+                                    <tr>
+                                        <td colspan="7" class="slds-text-align_center slds-p-around_medium">
+                                            <em>No primary returns logged.</em>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </lightning-tab>
+
+                <!-- TAB 11: DISTRIBUTOR OFFICER LOGIN -->
+                <lightning-tab label="Distributor Officer Login" value="distributorOfficers" icon-name="standard:user">
+                    <!-- Hero Profile Card matching user screenshot -->
+                    <div class="slds-m-vertical_medium do-hero-card">
+                        <div class="slds-grid slds-grid_vertical-align-center slds-m-bottom_medium">
+                            <div class="slds-col slds-grow-none slds-m-right_medium">
+                                <div class="do-avatar-circle">
+                                    A
+                                </div>
+                            </div>
+                            <div class="slds-col">
+                                <div class="slds-grid slds-grid_vertical-align-center">
+                                    <h2 class="slds-text-heading_medium slds-m-right_small" style="font-weight: 700; color: #1a202c;">
+                                        {activeOfficer.Name}
+                                    </h2>
+                                    <span class="do-active-badge">
+                                        <lightning-icon icon-name="utility:success" size="xx-small" variant="success"></lightning-icon>
+                                        Active in Salesforce Org
+                                    </span>
+                                </div>
+                                <p class="slds-text-body_regular slds-text-color_weak" style="font-weight: 500;">
+                                    {activeOfficer.Designation__c} &bull; FMCG Cloud Distributor Operations
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- 8 Metric / Field Detail Cards matching exact user requirement -->
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4 slds-m-bottom_small">
+                                <div class="do-field-card">
+                                    <div class="do-field-label">Officer Name</div>
+                                    <div class="do-field-val">{activeOfficer.Officer_Name__c}</div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4 slds-m-bottom_small">
+                                <div class="do-field-card">
+                                    <div class="do-field-label">Email ID</div>
+                                    <div class="do-field-val" style="color: #1a73e8;">{activeOfficer.Email__c}</div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4 slds-m-bottom_small">
+                                <div class="do-field-card">
+                                    <div class="do-field-label">Username</div>
+                                    <div class="do-field-val" style="color: #1a73e8;">{activeOfficer.Username__c}</div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4 slds-m-bottom_small">
+                                <div class="do-field-card">
+                                    <div class="do-field-label">Password</div>
+                                    <div class="do-field-val" style="font-family: monospace; letter-spacing: 1px;">{activeOfficer.Password__c}</div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4 slds-m-bottom_small">
+                                <div class="do-field-card">
+                                    <div class="do-field-label">Role</div>
+                                    <div class="do-field-val">{activeOfficer.Role__c}</div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4 slds-m-bottom_small">
+                                <div class="do-field-card">
+                                    <div class="do-field-label">Phone</div>
+                                    <div class="do-field-val">{activeOfficer.Phone__c}</div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4 slds-m-bottom_small">
+                                <div class="do-field-card">
+                                    <div class="do-field-label">Salesforce SObject ID</div>
+                                    <div class="do-field-val" style="font-family: monospace; font-size: 0.85rem; color: #4a5568;">{activeOfficer.Id}</div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4 slds-m-bottom_small">
+                                <div class="do-field-card">
+                                    <div class="do-field-label">Currency</div>
+                                    <div class="do-field-val">{activeOfficer.CurrencyIsoCode}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Search and Table of all DO Officers -->
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_small slds-m-top_x-small">
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning-input type="search" placeholder="Search officers by name, email, role..." value={doSearchKey} onchange={handleDOSearch}></lightning-input>
+                        </div>
+                    </div>
+
+                    <div class="slds-scrollable_x">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col"><div class="slds-truncate">Officer Name</div></th>
+                                    <th scope="col"><div class="slds-truncate">Email ID</div></th>
+                                    <th scope="col"><div class="slds-truncate">Username</div></th>
+                                    <th scope="col"><div class="slds-truncate">Password</div></th>
+                                    <th scope="col"><div class="slds-truncate">Role</div></th>
+                                    <th scope="col"><div class="slds-truncate">Phone</div></th>
+                                    <th scope="col"><div class="slds-truncate">Designation</div></th>
+                                    <th scope="col"><div class="slds-truncate">Status</div></th>
+                                    <th scope="col"><div class="slds-truncate">Currency</div></th>
+                                    <th scope="col"><div class="slds-truncate">Salesforce ID</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template if:true={hasDistributorOfficers}>
+                                    <template for:each={filteredDistributorOfficers} for:item="o">
+                                        <tr key={o.Id} class="slds-hint-parent">
+                                            <td><strong>{o.Name}</strong></td>
+                                            <td><a href="javascript:void(0);">{o.Email__c}</a></td>
+                                            <td>{o.Username__c}</td>
+                                            <td><code>{o.Password__c}</code></td>
+                                            <td><span class="slds-badge slds-theme_inverse">{o.Role__c}</span></td>
+                                            <td>{o.Phone__c}</td>
+                                            <td>{o.Designation__c}</td>
+                                            <td><span class="slds-badge slds-theme_success">{o.Status__c}</span></td>
+                                            <td>{o.CurrencyIsoCode}</td>
+                                            <td><code>{o.Id}</code></td>
+                                        </tr>
+                                    </template>
+                                </template>
+                                <template if:false={hasDistributorOfficers}>
+                                    <tr>
+                                        <td colspan="10" class="slds-text-align_center slds-p-around_medium">
+                                            <em>No distributor officers found.</em>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </lightning-tab>
+
+                <!-- TAB 12: DISTRIBUTOR PRIMARY APPROVAL -->
+                <lightning-tab label="Distributor Primary Approval" value="primaryApprovals" icon-name="standard:approval">
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_small slds-m-top_x-small">
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning-input type="search" placeholder="Search approvals by PO#, distributor, product, company..." value={primaryApprovalSearchKey} onchange={handlePrimaryApprovalSearch}></lightning-input>
+                        </div>
+                    </div>
+
+                    <div class="slds-scrollable_x">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col"><div class="slds-truncate">Approval #</div></th>
+                                    <th scope="col"><div class="slds-truncate">PO Number</div></th>
+                                    <th scope="col"><div class="slds-truncate">Distributor</div></th>
+                                    <th scope="col"><div class="slds-truncate">Company</div></th>
+                                    <th scope="col"><div class="slds-truncate">Scheme Applied</div></th>
+                                    <th scope="col"><div class="slds-truncate">Cases (Paid + Free)</div></th>
+                                    <th scope="col"><div class="slds-truncate">Total Amount</div></th>
+                                    <th scope="col"><div class="slds-truncate">DO Status</div></th>
+                                    <th scope="col"><div class="slds-truncate">Delivery Status</div></th>
+                                    <th scope="col"><div class="slds-truncate">Barcodes</div></th>
+                                    <th scope="col"><div class="slds-truncate">Actions</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template if:true={hasPrimaryApprovals}>
+                                    <template for:each={filteredPrimaryApprovals} for:item="a">
+                                        <tr key={a.Id} class="slds-hint-parent">
+                                            <td><strong>{a.Name}</strong></td>
+                                            <td><code>{a.Primary_Order_Number__c}</code></td>
+                                            <td>{a.Distributor_Name__c}</td>
+                                            <td><span class="slds-badge slds-theme_alt-inverse">{a.Product_Company__c}</span></td>
+                                            <td><span class="slds-text-color_weak" style="font-size: 0.8rem;">{a.Scheme_Applied__c}</span></td>
+                                            <td><strong>{a.Total_Cases__c} Cases</strong> ({a.Paid_Cases__c} Paid + {a.Free_Cases__c} Free)</td>
+                                            <td><strong>₹{a.Total_Amount__c}</strong> <span class="slds-text-color_weak" style="font-size: 0.75rem;">(Base: ₹{a.Gross_Amount__c})</span></td>
+                                            <td>
+                                                <template if:true={a.isApproved}>
+                                                    <span class="slds-badge slds-theme_success">Approved ✓</span>
+                                                </template>
+                                                <template if:true={a.isPending}>
+                                                    <span class="slds-badge slds-theme_warning">Pending Approval</span>
+                                                </template>
+                                                <template if:true={a.isRejected}>
+                                                    <span class="slds-badge slds-theme_error">Rejected ✗</span>
+                                                </template>
+                                            </td>
+                                            <td>
+                                                <span class="slds-badge">{a.Delivery_Status__c}</span>
+                                            </td>
+                                            <td>
+                                                <span class="slds-badge slds-theme_success" style="font-size: 0.75rem;">{a.Barcode_Scan_Status__c}</span>
+                                            </td>
+                                            <td>
+                                                <div class="slds-button-group">
+                                                    <lightning-button variant="base" label="View Modal" icon-name="utility:preview" size="small" data-id={a.Id} onclick={handleViewApprovalDetail}></lightning-button>
+                                                    <template if:true={a.isPending}>
+                                                        <lightning-button variant="success" label="Approve" size="small" data-id={a.Id} onclick={handleApprovePrimaryApproval} class="slds-m-left_xx-small"></lightning-button>
+                                                        <lightning-button variant="destructive" label="Reject" size="small" data-id={a.Id} onclick={handleRejectPrimaryApproval} class="slds-m-left_xx-small"></lightning-button>
+                                                    </template>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </template>
+                                <template if:false={hasPrimaryApprovals}>
+                                    <tr>
+                                        <td colspan="11" class="slds-text-align_center slds-p-around_medium">
+                                            <em>No distributor primary approvals found.</em>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </lightning-tab>
+
+                <!-- TAB 13: DISTRIBUTOR RETURN APPROVAL -->
+                <lightning-tab label="Distributor Return Approval" value="returnApprovals" icon-name="standard:recycle_bin">
+                    <div class="slds-grid slds-grid_align-spread slds-m-bottom_small slds-m-top_x-small">
+                        <div class="slds-col slds-size_1-of-3">
+                            <lightning-input type="search" placeholder="Search return approvals by return#, distributor..." value={returnApprovalSearchKey} onchange={handleReturnApprovalSearch}></lightning-input>
+                        </div>
+                    </div>
+
+                    <div class="slds-scrollable_x">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col"><div class="slds-truncate">Approval #</div></th>
+                                    <th scope="col"><div class="slds-truncate">Return Number</div></th>
+                                    <th scope="col"><div class="slds-truncate">Distributor</div></th>
+                                    <th scope="col"><div class="slds-truncate">Product</div></th>
+                                    <th scope="col"><div class="slds-truncate">Damaged Cases &amp; Claim</div></th>
+                                    <th scope="col"><div class="slds-truncate">Reason</div></th>
+                                    <th scope="col"><div class="slds-truncate">DO Status</div></th>
+                                    <th scope="col"><div class="slds-truncate">DO Actions</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template if:true={hasReturnApprovals}>
+                                    <template for:each={filteredReturnApprovals} for:item="r">
+                                        <tr key={r.Id} class="slds-hint-parent">
+                                            <td><strong>{r.Name}</strong></td>
+                                            <td><code>{r.Return_Number__c}</code></td>
+                                            <td>{r.Distributor_Name__c}</td>
+                                            <td>{r.Product_Name__c}</td>
+                                            <td><strong>{r.Damaged_Cases__c} Cases</strong> (₹{r.Total_Claim_Amount__c})</td>
+                                            <td><span class="slds-badge slds-theme_warning">{r.Return_Reason__c}</span></td>
+                                            <td>
+                                                <template if:true={r.isApproved}>
+                                                    <span class="slds-badge slds-theme_success">Approved ✓</span>
+                                                </template>
+                                                <template if:true={r.isPending}>
+                                                    <span class="slds-badge slds-theme_warning">Pending Approval</span>
+                                                </template>
+                                                <template if:true={r.isRejected}>
+                                                    <span class="slds-badge slds-theme_error">Rejected ✗</span>
+                                                </template>
+                                            </td>
+                                            <td>
+                                                <template if:true={r.isPending}>
+                                                    <div class="slds-button-group">
+                                                        <lightning-button variant="success" label="Approve" size="small" data-id={r.Id} onclick={handleApproveReturnApproval}></lightning-button>
+                                                        <lightning-button variant="destructive" label="Reject" size="small" data-id={r.Id} onclick={handleRejectReturnApproval} class="slds-m-left_xx-small"></lightning-button>
+                                                    </div>
+                                                </template>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </template>
+                                <template if:false={hasReturnApprovals}>
+                                    <tr>
+                                        <td colspan="8" class="slds-text-align_center slds-p-around_medium">
+                                            <em>No distributor return approvals found.</em>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </lightning-tab>
+            </lightning-tabset>
+        </div>
+
+        <!-- ==================== MODALS ==================== -->
+
+        <!-- MODAL: NEW EMPLOYEE -->
+        <template if:true={showNewEmployeeModal}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModals}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"></lightning-icon>
+                        </button>
+                        <h2 class="slds-modal__title slds-hyphenate">Create New Employee</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="Employee Name" required value={newEmp.Name} onchange={handleEmpFieldChange} data-field="Name"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="Aadhaar Number (12 Digits)" maxlength="12" value={newEmp.Aadhaar_Number__c} onchange={handleEmpFieldChange} data-field="Aadhaar_Number__c" message-when-pattern-mismatch="Aadhaar must be exactly 12 numeric digits" pattern="[0-9]{12}"></lightning-input>
+                                <template if:true={aadhaarError}>
+                                    <div class="slds-text-color_error slds-text-body_small">{aadhaarError}</div>
+                                </template>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="PAN Number (10 Alphanumeric)" maxlength="10" value={newEmp.PAN_Number__c} onchange={handleEmpFieldChange} data-field="PAN_Number__c" message-when-pattern-mismatch="PAN must be exactly 10 alphanumeric characters" pattern="[a-zA-Z0-9]{10}"></lightning-input>
+                                <template if:true={panError}>
+                                    <div class="slds-text-color_error slds-text-body_small">{panError}</div>
+                                </template>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input type="tel" label="Phone Number" value={newEmp.Phone_Number__c} onchange={handleEmpFieldChange} data-field="Phone_Number__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input type="tel" label="Emergency Contact" value={newEmp.Emergency_Contact__c} onchange={handleEmpFieldChange} data-field="Emergency_Contact__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-combobox label="Geography" value={newEmp.Geography__c} options={geoOptions} onchange={handleEmpFieldChange} data-field="Geography__c" placeholder="Select Geography"></lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-combobox label="Hierarchy" value={newEmp.Hierarchy__c} options={hierarchyOptions} onchange={handleEmpFieldChange} data-field="Hierarchy__c" placeholder="Select Hierarchy"></lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-combobox label="Reporting Manager" value={newEmp.Reporting_Manager__c} options={empOptions} onchange={handleEmpFieldChange} data-field="Reporting_Manager__c" placeholder="Search Employees..."></lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-combobox label="Lead Owner" value={newEmp.Lead_Owner__c} options={userOptions} onchange={handleEmpFieldChange} data-field="Lead_Owner__c" placeholder="Select Lead Owner (User)..."></lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="Distributor" value={newEmp.Distributor__c} onchange={handleEmpFieldChange} data-field="Distributor__c" placeholder="e.g. Bangalore Central Agency"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-combobox label="PJP" value={newEmp.PJP__c} options={pjpOptions} onchange={handleEmpFieldChange} data-field="PJP__c" placeholder="Search PJPs..."></lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-combobox label="Approval Status" value={newEmp.Status__c} options={statusOptions} onchange={handleEmpFieldChange} data-field="Status__c"></lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1">
+                                <div class="slds-form-element slds-m-top_small">
+                                    <label class="slds-form-element__label"><strong>Profile Picture (Upload Profile Picture)</strong></label>
+                                    <div class="slds-form-element__control slds-m-top_xx-small">
+                                        <input type="file" accept="image/*" class="slds-input" onchange={handleProfilePicUpload} />
+                                    </div>
+                                    <template if:true={profilePicPreview}>
+                                        <div class="slds-m-top_small slds-grid slds-grid_vertical-align-center slds-box slds-box_x-small slds-theme_shade">
+                                            <img src={profilePicPreview} alt="Preview" style="height: 60px; width: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #0176d3;" />
+                                            <div class="slds-m-left_small">
+                                                <div class="slds-text-title_bold slds-text-color_success">✓ Ready to Upload</div>
+                                                <div class="slds-text-body_small">{profilePicFileName}</div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Cancel" onclick={closeModals}></lightning-button>
+                        <lightning-button variant="brand" label="Save Employee" onclick={saveEmployee} class="slds-m-left_x-small"></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+        
+
+
+        <!-- MODAL: NEW GEOGRAPHY -->
+        <template if:true={showNewGeoModal}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModals}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"></lightning-icon>
+                        </button>
+                        <h2 class="slds-modal__title slds-hyphenate">Create New Geography</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <div class="slds-col slds-size_1-of-1">
+                                <lightning-input label="Geography Name" required value={newGeo.Name} onchange={handleGeoFieldChange} data-field="Name" placeholder="e.g. Karnataka South Zone"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-combobox label="Nation" value={newGeo.Nation__c} options={nationOptions} onchange={handleGeoFieldChange} data-field="Nation__c" placeholder="Select Nation"></lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-combobox label="State" value={newGeo.State__c} options={stateOptions} onchange={handleGeoFieldChange} data-field="State__c" placeholder="Select State"></lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="District" value={newGeo.District__c} onchange={handleGeoFieldChange} data-field="District__c" placeholder="Bengaluru Urban"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="Town" value={newGeo.Town__c} onchange={handleGeoFieldChange} data-field="Town__c" placeholder="Bengaluru"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="Municipal" value={newGeo.Municipal__c} onchange={handleGeoFieldChange} data-field="Municipal__c" placeholder="BBMP"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="Village" value={newGeo.Village__c} onchange={handleGeoFieldChange} data-field="Village__c"></lightning-input>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Cancel" onclick={closeModals}></lightning-button>
+                        <lightning-button variant="brand" label="Save Geography" onclick={saveGeography} class="slds-m-left_x-small"></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+        
+
+
+        <!-- MODAL: NEW BEAT (WITH AUTO-ADD LOGIC) -->
+        <template if:true={showNewBeatModal}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModals}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"></lightning-icon>
+                        </button>
+                        <h2 class="slds-modal__title slds-hyphenate">Create New Beat</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <template if:true={autoFillAlert}>
+                            <div class="slds-notify slds-notify_alert slds-alert_info slds-m-bottom_small" role="alert">
+                                <lightning-icon icon-name="utility:sparkles" size="x-small" variant="inverse" class="slds-m-right_x-small"></lightning-icon>
+                                <h2>{autoFillAlert}</h2>
+                            </div>
+                        </template>
+
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="Beat ID" value="Auto-generated upon save" disabled></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="Beat Name" required value={newBeat.Name} onchange={handleBeatFieldChange} data-field="Name" placeholder="e.g. Koramangala South Beat"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1">
+                                <lightning-combobox label="Beat Assigned To (Select Employee)" value={newBeat.Beat_Assigned_To__c} options={empOptions} onchange={handleBeatAssignedToChange} placeholder="Select an Employee (e.g. Viresh)"></lightning-combobox>
+                                <p class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">
+                                    Selecting an employee will automatically auto-populate Distributor and Geography!
+                                </p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="Distributor (Auto-populated)" value={newBeat.Distributor__c} onchange={handleBeatFieldChange} data-field="Distributor__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-combobox label="Geography (Auto-populated)" value={newBeat.Geography__c} options={geoOptions} onchange={handleBeatFieldChange} data-field="Geography__c" placeholder="Select Geography"></lightning-combobox>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Cancel" onclick={closeModals}></lightning-button>
+                        <lightning-button variant="brand" label="Save Beat" onclick={saveBeat} class="slds-m-left_x-small"></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+        
+
+
+        <!-- MODAL: NEW OUTLET -->
+        <template if:true={showNewOutletModal}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModals}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"></lightning-icon>
+                        </button>
+                        <h2 class="slds-modal__title slds-hyphenate">Create New Outlet</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="Outlet Name" required value={newOutlet.Name} onchange={handleOutletFieldChange} data-field="Name"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="Outlet Owner Name" value={newOutlet.Outlet_Owner_Name__c} onchange={handleOutletFieldChange} data-field="Outlet_Owner_Name__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input type="tel" label="Contact No." value={newOutlet.Contact_No__c} onchange={handleOutletFieldChange} data-field="Contact_No__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input type="email" label="Email" value={newOutlet.Email__c} onchange={handleOutletFieldChange} data-field="Email__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="Aadhaar (12 Digits)" maxlength="12" value={newOutlet.Aadhaar__c} onchange={handleOutletFieldChange} data-field="Aadhaar__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="PAN (10 Chars)" maxlength="10" value={newOutlet.PAN__c} onchange={handleOutletFieldChange} data-field="PAN__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input type="number" step="0.000001" label="Latitude" value={newOutlet.lat} onchange={handleOutletFieldChange} data-field="lat"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input type="number" step="0.000001" label="Longitude" value={newOutlet.lng} onchange={handleOutletFieldChange} data-field="lng"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-combobox label="Beat (Available Beats)" value={newOutlet.Beat__c} options={beatOptions} onchange={handleOutletBeatChange} data-field="Beat__c" placeholder="Select Beat"></lightning-combobox>
+                                <p class="slds-text-body_small slds-text-color_weak slds-m-top_xx-small">
+                                    Selecting a beat will automatically auto-populate Geography!
+                                </p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-combobox label="Geography (Auto-populated)" value={newOutlet.Geography__c} options={geoOptions} onchange={handleOutletFieldChange} data-field="Geography__c" placeholder="Select Geography"></lightning-combobox>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Cancel" onclick={closeModals}></lightning-button>
+                        <lightning-button variant="brand" label="Save Outlet" onclick={saveOutlet} class="slds-m-left_x-small"></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+        
+
+
+        <!-- MODAL: NEW PJP -->
+        <template if:true={showNewPjpModal}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModals}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"></lightning-icon>
+                        </button>
+                        <h2 class="slds-modal__title slds-hyphenate">Create New PJP (Permanent Journey Plan)</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <div class="slds-col slds-size_1-of-1">
+                                <lightning-input label="PJP Name" required value={newPjp.Name} onchange={handlePjpFieldChange} data-field="Name" placeholder="e.g. PJP - Viresh - Q4 2026"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1">
+                                <lightning-combobox label="Employee (Select from Available Employees)" required value={newPjp.Employee__c} options={empOptions} onchange={handlePjpFieldChange} data-field="Employee__c" placeholder="Select Employee"></lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1">
+                                <lightning-combobox label="Lead Owner / Approver (Select from Users)" required value={newPjp.Lead_Owner__c} options={userOptions} onchange={handlePjpFieldChange} data-field="Lead_Owner__c" placeholder="Select User"></lightning-combobox>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Cancel" onclick={closeModals}></lightning-button>
+                        <lightning-button variant="brand" label="Save PJP" onclick={savePjp} class="slds-m-left_x-small"></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+        
+
+
+        <!-- MODAL: APPROVE / REJECT PJP -->
+        <template if:true={showApprovalModal}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModals}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"></lightning-icon>
+                        </button>
+                        <h2 class="slds-modal__title slds-hyphenate">{approvalModalTitle}</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <p class="slds-m-bottom_small">{approvalModalPrompt}</p>
+                        <lightning-textarea label="Approval Comments" value={approvalComments} onchange={handleApprovalCommentsChange} placeholder="Enter comments..."></lightning-textarea>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Cancel" onclick={closeModals}></lightning-button>
+                        <lightning-button variant={approvalModalVariant} label={approvalModalActionLabel} onclick={confirmApprovalAction} class="slds-m-left_x-small"></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+        
+
+
+        <!-- MODAL: NEW DISTRIBUTOR -->
+        <template if:true={showNewDistModal}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModals}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"></lightning-icon>
+                        </button>
+                        <h2 class="slds-modal__title slds-hyphenate">Add New Distributor (DMS)</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="Distributor Name" required value={newDist.Name} onchange={handleDistFieldChange} data-field="Name" placeholder="e.g. Bangalore North Distributors"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="Distributor Code" value={newDist.Distributor_Code__c} onchange={handleDistFieldChange} data-field="Distributor_Code__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="Distributor Owner Name" required value={newDist.Distributor_Owner_Name__c} onchange={handleDistFieldChange} data-field="Distributor_Owner_Name__c" placeholder="e.g. Ramesh Babu"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input type="tel" label="Mobile Number" required value={newDist.Mobile_Number__c} onchange={handleDistFieldChange} data-field="Mobile_Number__c" placeholder="e.g. 9876543210"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="Contact Person" value={newDist.Contact_Person__c} onchange={handleDistFieldChange} data-field="Contact_Person__c" placeholder="e.g. Rajesh Kumar"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input type="tel" label="Phone" value={newDist.Phone__c} onchange={handleDistFieldChange} data-field="Phone__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input type="email" label="Email" value={newDist.Email__c} onchange={handleDistFieldChange} data-field="Email__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="GSTIN" value={newDist.GSTIN__c} onchange={handleDistFieldChange} data-field="GSTIN__c" placeholder="29ABCDE1234F1Z5"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="City" value={newDist.City__c} onchange={handleDistFieldChange} data-field="City__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="State" value={newDist.State__c} onchange={handleDistFieldChange} data-field="State__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input type="number" label="Max Outlets Allowed" value={newDist.Max_Outlets__c} onchange={handleDistFieldChange} data-field="Max_Outlets__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input label="Distribution Officer (DO)" value={newDist.Distributor_Officer__c} onchange={handleDistFieldChange} data-field="Distributor_Officer__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1">
+                                <lightning-input type="checkbox" label="Enable DMS Portal Access Immediately" checked={newDist.DMS_Portal_Enabled__c} onchange={handleDistFieldChange} data-field="DMS_Portal_Enabled__c"></lightning-input>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Cancel" onclick={closeModals}></lightning-button>
+                        <lightning-button variant="brand" label="Save Distributor" onclick={saveDistributor} class="slds-m-left_x-small"></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+        
+
+
+        <!-- MODAL: NEW PRIMARY ORDER -->
+        <template if:true={showNewPoModal}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModals}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"></lightning-icon>
+                        </button>
+                        <h2 class="slds-modal__title slds-hyphenate">Create Primary Order (Cases / Cartons)</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <div class="slds-grid slds-wrap slds-gutters">
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-combobox label="Distributor" required value={newPo.Distributor_Name__c} options={distOptions} onchange={handlePoFieldChange} data-field="Distributor_Name__c" placeholder="Select Distributor"></lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-combobox label="Sales Representative / Officer" value={newPo.Employee_Name__c} options={empOptions} onchange={handlePoFieldChange} data-field="Employee_Name__c" placeholder="Select SR"></lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input type="number" label="Total Cases" required value={newPo.Total_Cases__c} onchange={handlePoFieldChange} data-field="Total_Cases__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input type="number" formatter="currency" step="0.01" label="Gross Amount (₹)" value={newPo.Gross_Amount__c} onchange={handlePoFieldChange} data-field="Gross_Amount__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input type="number" formatter="currency" step="0.01" label="Tax Amount (₹)" value={newPo.Tax_Amount__c} onchange={handlePoFieldChange} data-field="Tax_Amount__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                                <lightning-input type="number" formatter="currency" step="0.01" label="Total Amount (₹)" value={newPo.Total_Amount__c} onchange={handlePoFieldChange} data-field="Total_Amount__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1">
+                                <lightning-input label="Primary Scheme Applied" value={newPo.Primary_Scheme_Applied__c} onchange={handlePoFieldChange} data-field="Primary_Scheme_Applied__c"></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1">
+                                <lightning-textarea label="Items &amp; Case Quantities Summary" value={newPo.Items_Summary__c} onchange={handlePoFieldChange} data-field="Items_Summary__c" placeholder="e.g. Parle-G 250g (10 Cases), Britannia Good Day 200g (5 Cases)"></lightning-textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Cancel" onclick={closeModals}></lightning-button>
+                        <lightning-button variant="brand" label="Submit Primary Order" onclick={savePrimaryOrder} class="slds-m-left_x-small"></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+        
+
+    
+        <!-- MODAL: DISTRIBUTOR PRIMARY APPROVAL FULL DETAILS -->
+        <template if:true={showApprovalDetailModal}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_large">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header slds-theme_shade">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeApprovalDetailModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"></lightning-icon>
+                        </button>
+                        <h2 class="slds-modal__title slds-hyphenate">
+                            <lightning-icon icon-name="standard:approval" size="small" class="slds-m-right_x-small"></lightning-icon>
+                            Primary Order Approval: {selectedApproval.Primary_Order_Number__c} ({selectedApproval.Name})
+                        </h2>
+                        <p class="slds-m-top_x-small slds-text-color_weak slds-text-body_small">
+                            Distributor: <strong>{selectedApproval.Distributor_Name__c}</strong> | Officer: <strong>{selectedApproval.Distributor_Officer_Name__c}</strong> | Company: <strong>{selectedApproval.Product_Company__c}</strong>
+                        </p>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" style="max-height: 75vh; overflow-y: auto;">
+                        <!-- KEY STATUS BADGES -->
+                        <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                <div class="slds-box slds-box_x-small slds-theme_default">
+                                    <div class="slds-text-title_caps slds-text-color_weak">DO Approval Status</div>
+                                    <div class="slds-m-top_xx-small">
+                                        <span class="slds-badge slds-theme_warning" style="font-weight: 700;">{selectedApproval.DO_Approval_Status__c}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                <div class="slds-box slds-box_x-small slds-theme_default">
+                                    <div class="slds-text-title_caps slds-text-color_weak">Dispatch Status</div>
+                                    <div class="slds-m-top_xx-small">
+                                        <span class="slds-badge slds-theme_info" style="font-weight: 700;">{selectedApproval.Dispatch_Status__c}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                <div class="slds-box slds-box_x-small slds-theme_default">
+                                    <div class="slds-text-title_caps slds-text-color_weak">Delivery Status</div>
+                                    <div class="slds-m-top_xx-small">
+                                        <span class="slds-badge slds-theme_success" style="font-weight: 700;">{selectedApproval.Delivery_Status__c}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4">
+                                <div class="slds-box slds-box_x-small slds-theme_default">
+                                    <div class="slds-text-title_caps slds-text-color_weak">Barcode Scan Status</div>
+                                    <div class="slds-m-top_xx-small">
+                                        <span class="slds-badge slds-theme_success" style="font-weight: 700;">{selectedApproval.Barcode_Scan_Status__c}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 14 PRIMARY ORDER & LOGISTICS FIELDS -->
+                        <div class="slds-section slds-is-open slds-m-bottom_medium">
+                            <h3 class="slds-section__title slds-theme_offline">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Consignment &amp; Logistics Details" style="font-weight: 700;">Consignment &amp; Logistics Details</span>
+                            </h3>
+                            <div class="slds-section__content slds-p-horizontal_small">
+                                <div class="slds-grid slds-wrap slds-gutters">
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                                        <div class="slds-text-color_weak slds-text-body_small">Distributor</div>
+                                        <div class="slds-text-heading_small">{selectedApproval.Distributor_Name__c}</div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                                        <div class="slds-text-color_weak slds-text-body_small">Distribution Officer (DO)</div>
+                                        <div class="slds-text-heading_small">{selectedApproval.Distributor_Officer_Name__c}</div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                                        <div class="slds-text-color_weak slds-text-body_small">Product Company / Manufacturer</div>
+                                        <div class="slds-text-heading_small">{selectedApproval.Product_Company__c}</div>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                                        <div class="slds-text-color_weak slds-text-body_small">Primary Scheme Applied</div>
+                                        <div class="slds-text-body_regular"><strong>{selectedApproval.Scheme_Applied__c}</strong></div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                                        <div class="slds-text-color_weak slds-text-body_small">Payment Terms</div>
+                                        <div class="slds-text-body_regular">{selectedApproval.Payment_Terms__c}</div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                                        <div class="slds-text-color_weak slds-text-body_small">Payment Status</div>
+                                        <div class="slds-text-body_regular"><span class="slds-badge slds-theme_alt-inverse">{selectedApproval.Payment_Status__c}</span></div>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                                        <div class="slds-text-color_weak slds-text-body_small">Invoice Number</div>
+                                        <div class="slds-text-body_regular" style="font-family: monospace; font-weight: 600;">{selectedApproval.Invoice_Number__c}</div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                                        <div class="slds-text-color_weak slds-text-body_small">Transporter / Logistics Partner</div>
+                                        <div class="slds-text-body_regular">{selectedApproval.Transporter_Name__c}</div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                                        <div class="slds-text-color_weak slds-text-body_small">LR / Tracking Number</div>
+                                        <div class="slds-text-body_regular" style="font-family: monospace; font-weight: 600;">{selectedApproval.LR_Number__c}</div>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                                        <div class="slds-text-color_weak slds-text-body_small">Expected Delivery Date</div>
+                                        <div class="slds-text-body_regular">{selectedApproval.Expected_Delivery_Date__c}</div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                                        <div class="slds-text-color_weak slds-text-body_small">Order Date</div>
+                                        <div class="slds-text-body_regular">{selectedApproval.Order_Date__c}</div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-bottom_small">
+                                        <div class="slds-text-color_weak slds-text-body_small">Overall Approval Status</div>
+                                        <div class="slds-text-body_regular"><span class="slds-badge slds-theme_default">{selectedApproval.Approval_Status__c}</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TOTALS & QUANTITIES SUMMARY -->
+                        <div class="slds-section slds-is-open slds-m-bottom_medium">
+                            <h3 class="slds-section__title slds-theme_offline">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Cases &amp; Pricing Summary" style="font-weight: 700;">Cases &amp; Pricing Breakdown</span>
+                            </h3>
+                            <div class="slds-section__content slds-p-horizontal_small">
+                                <div class="slds-grid slds-wrap slds-gutters slds-text-align_center">
+                                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-m-bottom_x-small">
+                                        <div class="slds-box slds-box_x-small slds-theme_shade">
+                                            <div class="slds-text-title_caps slds-text-color_weak">Paid Cases</div>
+                                            <div class="slds-text-heading_medium" style="font-weight: 700; color: #0176d3;">{selectedApproval.Paid_Cases__c}</div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-m-bottom_x-small">
+                                        <div class="slds-box slds-box_x-small slds-theme_shade">
+                                            <div class="slds-text-title_caps slds-text-color_weak">Free Cases (Scheme)</div>
+                                            <div class="slds-text-heading_medium" style="font-weight: 700; color: #2e844a;">{selectedApproval.Free_Cases__c}</div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-m-bottom_x-small">
+                                        <div class="slds-box slds-box_x-small slds-theme_shade">
+                                            <div class="slds-text-title_caps slds-text-color_weak">Total Cases</div>
+                                            <div class="slds-text-heading_medium" style="font-weight: 700;">{selectedApproval.Total_Cases__c}</div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-m-bottom_x-small">
+                                        <div class="slds-box slds-box_x-small slds-theme_shade">
+                                            <div class="slds-text-title_caps slds-text-color_weak">Total Pieces</div>
+                                            <div class="slds-text-heading_medium" style="font-weight: 700;">{selectedApproval.Total_Pieces__c}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-top_small">
+                                        <div class="slds-box slds-box_x-small slds-theme_default">
+                                            <div class="slds-text-title_caps slds-text-color_weak">Gross Base Amount</div>
+                                            <div class="slds-text-heading_small" style="font-weight: 600;">₹{selectedApproval.Gross_Amount__c}</div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-top_small">
+                                        <div class="slds-box slds-box_x-small slds-theme_default">
+                                            <div class="slds-text-title_caps slds-text-color_weak">GST (18% FMCG Tax)</div>
+                                            <div class="slds-text-heading_small" style="font-weight: 600; color: #ba0517;">₹{selectedApproval.Tax_Amount__c}</div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-m-top_small">
+                                        <div class="slds-box slds-box_x-small slds-theme_shade" style="background: #eef4ff; border-color: #0176d3;">
+                                            <div class="slds-text-title_caps slds-text-color_weak">Total Consignment Value</div>
+                                            <div class="slds-text-heading_medium" style="font-weight: 800; color: #014486;">₹{selectedApproval.Total_Amount__c}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PRODUCT ITEMIZED BREAKDOWN -->
+                        <div class="slds-section slds-is-open slds-m-bottom_medium">
+                            <h3 class="slds-section__title slds-theme_offline">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Product Itemized Breakdown (5 SKU Lines)" style="font-weight: 700;">Product Itemized Breakdown</span>
+                            </h3>
+                            <div class="slds-section__content slds-p-horizontal_small">
+                                <template if:true={selectedApproval.hasItems}>
+                                    <div class="slds-scrollable_x">
+                                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                                            <thead>
+                                                <tr class="slds-line-height_reset">
+                                                    <th scope="col"><div class="slds-truncate">#</div></th>
+                                                    <th scope="col"><div class="slds-truncate">Product Name</div></th>
+                                                    <th scope="col"><div class="slds-truncate">SKU Code</div></th>
+                                                    <th scope="col"><div class="slds-truncate">Paid Cases</div></th>
+                                                    <th scope="col"><div class="slds-truncate">Free Cases</div></th>
+                                                    <th scope="col"><div class="slds-truncate">Total Cases</div></th>
+                                                    <th scope="col"><div class="slds-truncate">Pcs/Case</div></th>
+                                                    <th scope="col"><div class="slds-truncate">Total Pcs</div></th>
+                                                    <th scope="col"><div class="slds-truncate">Rate/Case</div></th>
+                                                    <th scope="col"><div class="slds-truncate">Taxable Base</div></th>
+                                                    <th scope="col"><div class="slds-truncate">GST (18%)</div></th>
+                                                    <th scope="col"><div class="slds-truncate">Line Total</div></th>
+                                                    <th scope="col"><div class="slds-truncate">Barcode Reader / Code</div></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <template for:each={selectedApproval.parsedItems} for:item="item" for:index="idx">
+                                                    <tr key={item.sku} class="slds-hint-parent">
+                                                        <td>{idx}</td>
+                                                        <td><strong>{item.productName}</strong></td>
+                                                        <td><span class="slds-badge slds-theme_shade">{item.sku}</span></td>
+                                                        <td>{item.paidCases}</td>
+                                                        <td style="color: #2e844a; font-weight: 600;">{item.freeCases}</td>
+                                                        <td><strong>{item.totalCases}</strong></td>
+                                                        <td>{item.piecesPerCase}</td>
+                                                        <td>{item.totalPieces}</td>
+                                                        <td>₹{item.ratePerCase}</td>
+                                                        <td>₹{item.taxableAmount}</td>
+                                                        <td>₹{item.gstAmount}</td>
+                                                        <td><strong>₹{item.lineTotal}</strong></td>
+                                                        <td>
+                                                            <div class="slds-grid slds-grid_vertical-align-center">
+                                                                <lightning-icon icon-name="utility:scan" size="x-small" class="slds-m-right_xx-small"></lightning-icon>
+                                                                <span style="font-family: monospace; font-size: 0.8rem; background: #f3f3f3; padding: 2px 6px; border-radius: 4px; border: 1px dashed #bbb;">{item.barcode}</span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </template>
+                                <template if:false={selectedApproval.hasItems}>
+                                    <div class="slds-box slds-box_small slds-theme_shade">
+                                        <div class="slds-text-title_caps slds-m-bottom_xx-small">Items Summary</div>
+                                        <p>{selectedApproval.Items_Summary__c}</p>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <!-- REMARKS & DO REMARKS -->
+                        <div class="slds-section slds-is-open">
+                            <h3 class="slds-section__title slds-theme_offline">
+                                <span class="slds-truncate slds-p-horizontal_small" title="Audit &amp; Remarks" style="font-weight: 700;">Audit &amp; Approval Remarks</span>
+                            </h3>
+                            <div class="slds-section__content slds-p-horizontal_small">
+                                <div class="slds-grid slds-wrap slds-gutters">
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_small">
+                                        <div class="slds-box slds-box_x-small slds-theme_shade">
+                                            <div class="slds-text-title_caps slds-text-color_weak">General Remarks</div>
+                                            <div class="slds-m-top_xx-small">{selectedApproval.Remarks__c}</div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-m-bottom_small">
+                                        <div class="slds-box slds-box_x-small slds-theme_shade">
+                                            <div class="slds-text-title_caps slds-text-color_weak">DO (Distribution Officer) Remarks</div>
+                                            <div class="slds-m-top_xx-small">{selectedApproval.DO_Remarks__c}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Close" onclick={closeApprovalDetailModal}></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>Set_PJP_Approval_Comments</fullName>
+        <description>Sets PJP Approval Comments to Approved</description>
+        <field>Approval_Comments__c</field>
+        <formula>&quot;Approved&quot;</formula>
+        <name>Set PJP Approval Comments</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_PJP_Approval_Date</fullName>
+        <description>Sets PJP Approval Date to current timestamp</description>
+        <field>Approval_Date__c</field>
+        <formula>NOW()</formula>
+        <name>Set PJP Approval Date</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_PJP_Status_Approved</fullName>
+        <description>Sets PJP Status to Approved</description>
+        <field>Status__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Set PJP Status Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_PJP_Status_Rejected</fullName>
+        <description>Sets PJP Status to Rejected</description>
+        <field>Status__c</field>
+        <literalValue>Rejected</literalValue>
+        <name>Set PJP Status Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Set_PJP_Status_Submitted</fullName>
+        <description>Sets PJP Status to Submitted</description>
+        <field>Status__c</field>
+        <literalValue>Submitted</literalValue>
+        <name>Set PJP Status Submitted</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+</Workflow>

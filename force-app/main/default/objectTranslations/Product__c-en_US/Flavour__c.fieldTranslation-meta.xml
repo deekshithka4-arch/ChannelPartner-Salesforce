@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Flavour --></label>
+    <name>Flavour__c</name>
+    <picklistValues>
+        <masterLabel>Butter</masterLabel>
+        <translation><!-- Butter --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cashew</masterLabel>
+        <translation><!-- Cashew --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Choco Chip</masterLabel>
+        <translation><!-- Choco Chip --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chocolate</masterLabel>
+        <translation><!-- Chocolate --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Coffee</masterLabel>
+        <translation><!-- Coffee --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Elaichi</masterLabel>
+        <translation><!-- Elaichi --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ginger</masterLabel>
+        <translation><!-- Ginger --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Glucose</masterLabel>
+        <translation><!-- Glucose --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Jeera</masterLabel>
+        <translation><!-- Jeera --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Milk</masterLabel>
+        <translation><!-- Milk --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Salted</masterLabel>
+        <translation><!-- Salted --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Strawberry</masterLabel>
+        <translation><!-- Strawberry --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vanilla</masterLabel>
+        <translation><!-- Vanilla --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Kind_of_Expense__c</fullName>
+    <label>Kind of Expense</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Daily Allowance (Salary / DA)</fullName>
+                <default>false</default>
+                <label>Daily Allowance (Salary / DA)</label>
+            </value>
+            <value>
+                <fullName>Food</fullName>
+                <default>false</default>
+                <label>Food</label>
+            </value>
+            <value>
+                <fullName>Mobile Internet</fullName>
+                <default>false</default>
+                <label>Mobile Internet</label>
+            </value>
+            <value>
+                <fullName>Petrol</fullName>
+                <default>false</default>
+                <label>Petrol</label>
+            </value>
+            <value>
+                <fullName>Travel Allowance (TA)</fullName>
+                <default>false</default>
+                <label>Travel Allowance (TA)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- MRP Price of the selected Product --></help>
+    <label><!-- Product MRP --></label>
+    <name>Product_MRP__c</name>
+</CustomFieldTranslation>

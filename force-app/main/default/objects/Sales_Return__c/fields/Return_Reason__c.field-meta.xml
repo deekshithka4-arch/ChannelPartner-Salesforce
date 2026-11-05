@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Return_Reason__c</fullName>
+    <label>Return Reason</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Damaged Goods</fullName>
+                <default>true</default>
+                <label>Damaged Goods</label>
+            </value>
+            <value>
+                <fullName>Expired SKU</fullName>
+                <default>false</default>
+                <label>Expired SKU</label>
+            </value>
+            <value>
+                <fullName>Leakage / Seal Broken</fullName>
+                <default>false</default>
+                <label>Leakage / Seal Broken</label>
+            </value>
+            <value>
+                <fullName>Slow Moving / Unsold</fullName>
+                <default>false</default>
+                <label>Slow Moving / Unsold</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

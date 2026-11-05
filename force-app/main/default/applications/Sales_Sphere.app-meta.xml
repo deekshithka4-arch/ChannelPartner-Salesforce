@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <logo>SalesSphere_Glossy_Orb_Logo</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
+    </brand>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
+    <label>Sales Sphere</label>
+    <navType>Standard</navType>
+    <tabs>standard-home</tabs>
+    <tabs>SFANDMS</tabs>
+    <tabs>Employee__c</tabs>
+    <tabs>Geography__c</tabs>
+    <tabs>Beat__c</tabs>
+    <tabs>Outlet__c</tabs>
+    <tabs>PJP__c</tabs>
+    <tabs>Product__c</tabs>
+    <tabs>Scheme__c</tabs>
+    <tabs>Sales_Order__c</tabs>
+    <tabs>Asset_Survey__c</tabs>
+    <tabs>Competitor_Activity__c</tabs>
+    <tabs>Stock_Check__c</tabs>
+    <tabs>Ticket__c</tabs>
+    <tabs>Return__c</tabs>
+    <tabs>Attendance__c</tabs>
+    <tabs>Leave__c</tabs>
+    <tabs>Primary_Order__c</tabs>
+    <tabs>Distributor_Primary_Approval__c</tabs>
+    <tabs>Distributor_Return_Approval__c</tabs>
+    <tabs>Distributor_Officer_Login__c</tabs>
+    <tabs>Distributor__c</tabs>
+    <tabs>Distributor_Stock__c</tabs>
+    <tabs>Primary_Return__c</tabs>
+    <tabs>DMS_Stock__c</tabs>
+    <tabs>DMS_Return__c</tabs>
+    <tabs>DMS_Ticket__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>SFA_and_DMS_Enterprise_UtilityBar</utilityBar>
+</CustomApplication>

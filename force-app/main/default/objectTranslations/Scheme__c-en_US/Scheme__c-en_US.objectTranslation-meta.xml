@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Scheme</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Schemes</value>
+    </caseValues>
+    <layouts>
+        <layout>Scheme Layout</layout>
+        <sections>
+            <label><!-- Discount, Slab &amp; Bundle Details --></label>
+            <section>Discount, Slab &amp; Bundle Details</section>
+        </sections>
+        <sections>
+            <label><!-- Scheme Description &amp; Terms --></label>
+            <section>Scheme Description &amp; Terms</section>
+        </sections>
+        <sections>
+            <label><!-- Scheme Offer &amp; Free Product Details --></label>
+            <section>Scheme Offer &amp; Free Product Details</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

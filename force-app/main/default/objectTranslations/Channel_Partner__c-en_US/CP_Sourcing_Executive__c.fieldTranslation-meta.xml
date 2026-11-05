@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- CP Sourcing Executive --></label>
+    <name>CP_Sourcing_Executive__c</name>
+    <relationshipLabel><!-- Channel Partners (CP Sourcing Executive) --></relationshipLabel>
+</CustomFieldTranslation>

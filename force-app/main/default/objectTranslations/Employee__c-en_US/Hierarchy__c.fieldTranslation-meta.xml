@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Hierarchy --></label>
+    <name>Hierarchy__c</name>
+    <picklistValues>
+        <masterLabel>Area Sales Manager</masterLabel>
+        <translation><!-- Area Sales Manager --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Executive Sales Manager</masterLabel>
+        <translation><!-- Executive Sales Manager --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Manager</masterLabel>
+        <translation><!-- Manager --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>National Sales Manager</masterLabel>
+        <translation><!-- National Sales Manager --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Regional Sales Manager</masterLabel>
+        <translation><!-- Regional Sales Manager --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sales Manager</masterLabel>
+        <translation><!-- Sales Manager --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sales Officer</masterLabel>
+        <translation><!-- Sales Officer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sales Representative</masterLabel>
+        <translation><!-- Sales Representative --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Territory Sales Manager</masterLabel>
+        <translation><!-- Territory Sales Manager --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Zonal Sales Manager</masterLabel>
+        <translation><!-- Zonal Sales Manager --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

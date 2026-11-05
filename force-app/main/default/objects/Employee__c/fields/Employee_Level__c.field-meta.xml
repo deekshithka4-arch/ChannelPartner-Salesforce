@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Employee_Level__c</fullName>
+    <description>FMCG Organizational Level from L1 (Frontline) to L8 (Executive)</description>
+    <label>Employee Level</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>L1 - Sales Representative</fullName>
+                <default>false</default>
+                <label>L1 - Sales Representative</label>
+            </value>
+            <value>
+                <fullName>L2 - Sales Officer</fullName>
+                <default>false</default>
+                <label>L2 - Sales Officer</label>
+            </value>
+            <value>
+                <fullName>L3 - Area Sales Manager</fullName>
+                <default>false</default>
+                <label>L3 - Area Sales Manager</label>
+            </value>
+            <value>
+                <fullName>L4 - Regional Sales Manager</fullName>
+                <default>false</default>
+                <label>L4 - Regional Sales Manager</label>
+            </value>
+            <value>
+                <fullName>L5 - Zonal Sales Manager</fullName>
+                <default>false</default>
+                <label>L5 - Zonal Sales Manager</label>
+            </value>
+            <value>
+                <fullName>L6 - National Sales Manager</fullName>
+                <default>false</default>
+                <label>L6 - National Sales Manager</label>
+            </value>
+            <value>
+                <fullName>L7 - Vice President</fullName>
+                <default>false</default>
+                <label>L7 - Vice President</label>
+            </value>
+            <value>
+                <fullName>L8 - Admin / CEO</fullName>
+                <default>false</default>
+                <label>L8 - Admin / CEO</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

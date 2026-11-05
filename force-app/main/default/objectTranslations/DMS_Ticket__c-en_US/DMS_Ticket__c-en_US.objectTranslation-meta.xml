@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>DMS Ticket</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>DMS Tickets</value>
+    </caseValues>
+    <layouts>
+        <layout>DMS Ticket Layout</layout>
+        <sections>
+            <label><!-- Assignment &amp; Contact --></label>
+            <section>Assignment &amp; Contact</section>
+        </sections>
+        <sections>
+            <label><!-- Description &amp; Resolution --></label>
+            <section>Description &amp; Resolution</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

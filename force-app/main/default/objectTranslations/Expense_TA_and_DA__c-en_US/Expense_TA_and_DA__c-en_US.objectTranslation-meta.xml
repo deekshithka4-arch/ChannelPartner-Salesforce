@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Expense TA and DA</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Expense TA and DA</value>
+    </caseValues>
+    <layouts>
+        <layout>Expense TA and DA Layout</layout>
+        <sections>
+            <label><!-- Receipt &amp; Voucher Information --></label>
+            <section>Receipt &amp; Voucher Information</section>
+        </sections>
+        <sections>
+            <label><!-- Travel &amp; Odometer Details --></label>
+            <section>Travel &amp; Odometer Details</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

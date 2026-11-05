@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Outlet Type --></label>
+    <name>Outlet_Type__c</name>
+    <picklistValues>
+        <masterLabel>Cosmetic</masterLabel>
+        <translation><!-- Cosmetic --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Grocery</masterLabel>
+        <translation><!-- Grocery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medical</masterLabel>
+        <translation><!-- Medical --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pan shop</masterLabel>
+        <translation><!-- Pan shop --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

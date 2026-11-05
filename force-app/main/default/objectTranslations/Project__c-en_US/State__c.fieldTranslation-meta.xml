@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- State --></label>
+    <name>State__c</name>
+    <picklistValues>
+        <masterLabel>Andhra Pradesh</masterLabel>
+        <translation><!-- Andhra Pradesh --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Assam</masterLabel>
+        <translation><!-- Assam --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Karnataka</masterLabel>
+        <translation><!-- Karnataka --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Kerala</masterLabel>
+        <translation><!-- Kerala --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tamil Nadu</masterLabel>
+        <translation><!-- Tamil Nadu --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Telangana</masterLabel>
+        <translation><!-- Telangana --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

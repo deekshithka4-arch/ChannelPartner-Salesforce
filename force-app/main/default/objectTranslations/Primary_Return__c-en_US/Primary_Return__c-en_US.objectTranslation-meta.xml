@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Primary Return</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Primary Returns</value>
+    </caseValues>
+    <layouts>
+        <layout>Primary Return Layout</layout>
+        <sections>
+            <label><!-- Batch &amp; Inspection Details --></label>
+            <section>Batch &amp; Inspection Details</section>
+        </sections>
+        <sections>
+            <label><!-- Settlement &amp; Resolution --></label>
+            <section>Settlement &amp; Resolution</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

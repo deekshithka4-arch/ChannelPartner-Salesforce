@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Distributor Primary Approval</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Distributor Primary Approvals</value>
+    </caseValues>
+    <layouts>
+        <layout>Distributor Primary Approval Layout</layout>
+        <sections>
+            <label><!-- Consignment Pricing &amp; Cases --></label>
+            <section>Consignment Pricing &amp; Cases</section>
+        </sections>
+        <sections>
+            <label><!-- Invoice &amp; Logistics Details --></label>
+            <section>Invoice &amp; Logistics Details</section>
+        </sections>
+        <sections>
+            <label><!-- Remarks &amp; Itemized Breakdown --></label>
+            <section>Remarks &amp; Itemized Breakdown</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

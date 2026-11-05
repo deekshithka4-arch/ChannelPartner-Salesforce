@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Status --></label>
+    <name>Status__c</name>
+    <picklistValues>
+        <masterLabel>Collected by SR</masterLabel>
+        <translation><!-- Collected by SR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Received at Distributor Warehouse</masterLabel>
+        <translation><!-- Received at Distributor Warehouse --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Replacement Dispatched</masterLabel>
+        <translation><!-- Replacement Dispatched --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Store Credit Issued</masterLabel>
+        <translation><!-- Store Credit Issued --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

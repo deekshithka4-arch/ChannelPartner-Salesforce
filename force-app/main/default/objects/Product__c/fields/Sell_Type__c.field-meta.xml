@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sell_Type__c</fullName>
+    <description>Product 3-configuration: Must Sell, Focused Sell, Suggested Sell, or Regular</description>
+    <label>Sell Configuration</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Must Sell</fullName>
+                <default>false</default>
+                <label>Must Sell</label>
+            </value>
+            <value>
+                <fullName>Focused Sell</fullName>
+                <default>false</default>
+                <label>Focused Sell</label>
+            </value>
+            <value>
+                <fullName>Suggested Sell</fullName>
+                <default>false</default>
+                <label>Suggested Sell</label>
+            </value>
+            <value>
+                <fullName>Regular</fullName>
+                <default>true</default>
+                <label>Regular</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

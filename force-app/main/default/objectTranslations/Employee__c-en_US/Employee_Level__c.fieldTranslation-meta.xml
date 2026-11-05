@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Employee Level --></label>
+    <name>Employee_Level__c</name>
+    <picklistValues>
+        <masterLabel>L1 - Sales Representative</masterLabel>
+        <translation><!-- L1 - Sales Representative --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>L2 - Sales Officer</masterLabel>
+        <translation><!-- L2 - Sales Officer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>L3 - Area Sales Manager</masterLabel>
+        <translation><!-- L3 - Area Sales Manager --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>L4 - Regional Sales Manager</masterLabel>
+        <translation><!-- L4 - Regional Sales Manager --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>L5 - Zonal Sales Manager</masterLabel>
+        <translation><!-- L5 - Zonal Sales Manager --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>L6 - National Sales Manager</masterLabel>
+        <translation><!-- L6 - National Sales Manager --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>L7 - Vice President</masterLabel>
+        <translation><!-- L7 - Vice President --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>L8 - Admin / CEO</masterLabel>
+        <translation><!-- L8 - Admin / CEO --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

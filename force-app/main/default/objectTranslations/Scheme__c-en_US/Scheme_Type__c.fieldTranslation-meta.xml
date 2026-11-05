@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type of Scheme --></label>
+    <name>Scheme_Type__c</name>
+    <picklistValues>
+        <masterLabel>Bundle Scheme</masterLabel>
+        <translation><!-- Bundle Scheme --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Different Product Free</masterLabel>
+        <translation><!-- Different Product Free --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Promotional Item Free (Non-Listed Product)</masterLabel>
+        <translation><!-- Promotional Item Free (Non-Listed Product) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Same Product Free (BOGO)</masterLabel>
+        <translation><!-- Same Product Free (BOGO) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Slab Scheme</masterLabel>
+        <translation><!-- Slab Scheme --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

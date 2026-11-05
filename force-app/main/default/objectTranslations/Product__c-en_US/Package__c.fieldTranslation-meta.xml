@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Package --></label>
+    <name>Package__c</name>
+    <picklistValues>
+        <masterLabel>Box</masterLabel>
+        <translation><!-- Box --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cover</masterLabel>
+        <translation><!-- Cover --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Packet</masterLabel>
+        <translation><!-- Packet --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pouch</masterLabel>
+        <translation><!-- Pouch --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tin</masterLabel>
+        <translation><!-- Tin --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

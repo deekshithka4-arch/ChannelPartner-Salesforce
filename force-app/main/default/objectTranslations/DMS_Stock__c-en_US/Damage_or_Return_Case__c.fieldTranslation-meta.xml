@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Damaged or Returned Cases deducted via claims --></help>
+    <label><!-- Damage or Return Case --></label>
+    <name>Damage_or_Return_Case__c</name>
+</CustomFieldTranslation>

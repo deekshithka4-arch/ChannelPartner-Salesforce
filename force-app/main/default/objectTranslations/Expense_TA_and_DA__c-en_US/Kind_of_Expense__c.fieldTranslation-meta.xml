@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Kind of Expense --></label>
+    <name>Kind_of_Expense__c</name>
+    <picklistValues>
+        <masterLabel>Daily Allowance (Salary / DA)</masterLabel>
+        <translation><!-- Daily Allowance (Salary / DA) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Food</masterLabel>
+        <translation><!-- Food --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mobile Internet</masterLabel>
+        <translation><!-- Mobile Internet --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Petrol</masterLabel>
+        <translation><!-- Petrol --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Travel Allowance (TA)</masterLabel>
+        <translation><!-- Travel Allowance (TA) --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

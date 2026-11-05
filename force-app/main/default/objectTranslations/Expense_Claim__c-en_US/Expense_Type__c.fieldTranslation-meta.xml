@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Expense Type --></label>
+    <name>Expense_Type__c</name>
+    <picklistValues>
+        <masterLabel>Daily Allowance (DA)</masterLabel>
+        <translation><!-- Daily Allowance (DA) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fuel</masterLabel>
+        <translation><!-- Fuel --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lodging</masterLabel>
+        <translation><!-- Lodging --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Meals</masterLabel>
+        <translation><!-- Meals --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Miscellaneous</masterLabel>
+        <translation><!-- Miscellaneous --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tolls &amp; Parking</masterLabel>
+        <translation><!-- Tolls &amp; Parking --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Travel Allowance (TA)</masterLabel>
+        <translation><!-- Travel Allowance (TA) --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

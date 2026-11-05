@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- BHK Type --></label>
+    <name>BHK_Type__c</name>
+    <picklistValues>
+        <masterLabel>1 BHK</masterLabel>
+        <translation><!-- 1 BHK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>1 RK</masterLabel>
+        <translation><!-- 1 RK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2 BHK</masterLabel>
+        <translation><!-- 2 BHK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>3 BHK</masterLabel>
+        <translation><!-- 3 BHK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>4 BHK</masterLabel>
+        <translation><!-- 4 BHK --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Villa</masterLabel>
+        <translation><!-- Villa --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

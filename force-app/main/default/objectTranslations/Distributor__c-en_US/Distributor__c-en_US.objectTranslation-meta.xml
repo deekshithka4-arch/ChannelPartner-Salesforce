@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Distributor</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Distributors</value>
+    </caseValues>
+    <layouts>
+        <layout>Distributor Layout</layout>
+        <sections>
+            <label><!-- Address Details --></label>
+            <section>Address Details</section>
+        </sections>
+        <sections>
+            <label><!-- DMS Portal &amp; Operations --></label>
+            <section>DMS Portal &amp; Operations</section>
+        </sections>
+        <sections>
+            <label><!-- Distributor Information --></label>
+            <section>Distributor Information</section>
+        </sections>
+        <sections>
+            <label><!-- Portal Authentication Credentials --></label>
+            <section>Portal Authentication Credentials</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>
